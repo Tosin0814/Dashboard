@@ -7,33 +7,51 @@ const generateTableHead = (table, data) => {
     let row = thead.insertRow();
     for (let key of data) {
         let th = document.createElement('th');
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th)
+        if (key === null) {
+            th.appendChild(document.createTextNode(""));
+            row.appendChild(th)
+        } else {
+            th.appendChild(document.createTextNode(key));
+            row.appendChild(th)
+        }
     };
 }
 
 const generateTableRows = (table, data) => {
-    let newRow = table.insertRow(-1);
+    let newRow = table.createTBody().insertRow(-1);
+    let elementNum = 0
+    console.log(elementNum)
     data.map((row, index) => {
         let newCell = newRow.insertCell();
-        let newText = document.createTextNode(row);
-        newCell.appeendChild(newText);
+        if (row === null && index > 0) {
+            newCell.style.backgroundColor='red'
+            newCell.appendChild(document.createTextNode(''));
+        } else if (row !== null && index === 0){
+            newCell.appendChild(document.createTextNode(row))
+            newCell.style.fontWeight='bold'
+        } else if ((row !== null) && (index > 0)){
+            newCell.style.backgroundColor='green'
+            newCell.appendChild(document.createTextNode('xxxx'))
+            elementNum +=1
+        // } else if ((index > 0) && (index + 1 == row.length)){
+        //     console.log(elementNum)
+        //     newCell.appendChild(document.createTextNode(elementNum))
+        }
     });
+    
+    console.log('Final value: ', elementNum)
 }
 
 input.addEventListener('change', function () {
     readXlsxFile(input.files[0])
     .then(function (data) {
         // console.log(data)
-        let i= 0;
+        // let i= 0;
         data.map((row, index) => {
-            if (i === 0){
+            if (index === 0){
                 let table = document.getElementById('table-data');
                 generateTableHead(table, row);
-            }
-
-            if (i > 0) {
+            }else {
                 let table = document.getElementById('table-data');
                 generateTableRows(table, row);
             }
