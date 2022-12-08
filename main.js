@@ -5,6 +5,7 @@ const input = document.getElementById('input');
 const generateTableHead = (table, data) => {
     let thead = table.createTHead();
     let row = thead.insertRow();
+    let th = document.createElement('th');
     for (let key of data) {
         let th = document.createElement('th');
         if (key === null) {
@@ -15,6 +16,9 @@ const generateTableHead = (table, data) => {
             row.appendChild(th)
         }
     };
+    const showElementNum = document.createElement('th')
+    showElementNum.appendChild(document.createTextNode("Number of Elements"));
+    row.appendChild(showElementNum)
 }
 
 const generateTableRows = (table, data) => {
@@ -33,12 +37,9 @@ const generateTableRows = (table, data) => {
             newCell.style.backgroundColor='green'
             newCell.appendChild(document.createTextNode('xxxx'))
             elementNum +=1
-        // } else if ((index > 0) && (index + 1 == row.length)){
-        //     console.log(elementNum)
-        //     newCell.appendChild(document.createTextNode(elementNum))
         }
     });
-    
+    newRow.insertCell().appendChild(document.createTextNode(elementNum))
     console.log('Final value: ', elementNum)
 }
 
