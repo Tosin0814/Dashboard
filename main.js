@@ -1,6 +1,3 @@
-
-const input = document.getElementById('input');
-
 const generateTableHead = (table, data) => {
     let thead = table.createTHead();
     let row = thead.insertRow();
@@ -39,6 +36,9 @@ const generateTableRows = (table, data) => {
     });
     newRow.insertCell().appendChild(document.createTextNode(elementNum))
 }
+
+const input = document.getElementById('input');
+
 
 input.addEventListener('change', function () {
     readXlsxFile(input.files[0])
